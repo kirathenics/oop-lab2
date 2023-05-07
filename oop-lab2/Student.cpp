@@ -2,14 +2,14 @@
 
 Student::Student()
 {
-    cout << "Вызвался конструктор без параметров для " << this << endl;
+    cout << "Вызвался конструктор без параметров для объекта с адресом " << this << endl;
     name = nullptr;
     course = gender = NULL;
 }
 
 Student::Student(char* name, int age, bool gender)
 {
-    cout << "Вызвался конструктор с параметрами для " << this << endl;
+    cout << "Вызвался конструктор с параметрами для объекта с адресом " << this << endl;
     this->name = new char[strlen(name) + 1];
     strcpy_s(this->name, strlen(name) + 1, name);
     this->course = age;
@@ -18,7 +18,7 @@ Student::Student(char* name, int age, bool gender)
 
 Student::Student(const Student& object)
 {
-    cout << "Вызвался конструктор копирования для " << this << endl;
+    cout << "Вызвался конструктор копирования для объекта с адресом " << this << endl;
     if (object.name)
     {
         this->name = new char[strlen(object.name) + 1];
@@ -34,7 +34,7 @@ Student::Student(const Student& object)
 
 Student::~Student()
 {
-    cout << "Вызвался деструктор для " << this << endl;
+    cout << "Вызвался деструктор для объекта с адресом " << this << endl;
     delete[] name;
 }
 

@@ -5,7 +5,8 @@ Student CreateTempObject(Student& object);   // прототип функции для создания вр
 
 int main()
 {
-    setlocale(0, "");
+    system("chcp 1251");
+    //setlocale(0, "");
 
     char name1[] = "Родион Раскольников", name2[] = "Дин И", name3[] = "Мартин Иден";
 
