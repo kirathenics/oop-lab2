@@ -94,5 +94,5 @@ void Student::set_all(char* name, int age, bool gender)
 
 void Student::print_all()
 {
-    cout << "Имя: " << name << " Возраст - " << course << " Пол - " << gender << endl;
+    cout << "Имя: " << name << " Курс: " << course << " Пол: " << gender << endl;
 }

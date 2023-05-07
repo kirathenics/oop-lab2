@@ -1,82 +1,84 @@
 #include "Student.h"
 
-void ViewPerson(Student object);  // прототип функции с передачей объекта класса по значению
-Student CreateTempObject(Student& object);   // прототип функции для создания временного объекта
+void show_student(Student object);  // прототип функции с передачей объекта класса по значению
+Student create_temp_object(Student& object);   // прототип функции для создания временного объекта
 
 int main()
 {
     system("chcp 1251");
-    //setlocale(0, "");
 
-    char name1[] = "Родион Раскольников", name2[] = "Дин И", name3[] = "Мартин Иден";
+    char name1[] = "Морозова Анна", name2[] = "Толкачев Константин", name3[] = "Орлова Елизавета";
 
     cout << "Создание объекта без параметров" << endl;
-    Student withoutParams;   // создание объекта без параметров
-    withoutParams.set_name(name1);     // использование методов установления и вывода полей
-    withoutParams.set_course(23);
-    withoutParams.set_gender(1);
-    withoutParams.print_name();
-    withoutParams.print_course();
-    withoutParams.print_gender();
+    Student object_without_params;     // создание объекта без параметров
+    object_without_params.set_name(name1);     // использование методов установления и вывода полей
+    object_without_params.set_course(2);
+    object_without_params.set_gender(1);
+    object_without_params.print_name();
+    object_without_params.print_course();
+    object_without_params.print_gender();
 
-    cout << "\nСоздание объекта с параметрами" << endl;
-    Student withParams(name2, 34, 0);  // создание объекта с параметрами
-    withParams.print_all();
+    cout << endl << "Создание объекта с параметрами" << endl;
+    Student object_with_params(name2, 3, 0);   // создание объекта с параметрами
+    object_with_params.print_all();
 
-    cout << "\nИспользование объекта для инициализации другого объекта" << endl;
-    Student copyWithParams = withParams; // использование объекта для инициализации другого объекта
-    copyWithParams.print_all();
+    cout << endl << "Использование объекта для инициализации другого объекта" << endl;
+    Student obj_copied = object_with_params;   // использование объекта для инициализации другого объекта
+    obj_copied.print_all();
 
-    cout << "\nОбъект передается в функцию по значению" << endl;
-    ViewPerson(withParams);     // объект передается в функцию по значению
+    cout << endl << "Объект передается в функцию по значению" << endl;
+    show_student(object_with_params);  // объект передается в функцию по значению
 
-    cout << "\nИспользование построения временного объекта как возвращаемого объекта" << endl;
-    Student copyTemp = CreateTempObject(withoutParams);    // использование построения временного объекта как возвращаемого объекта
-    copyTemp.print_all();
+    cout << endl << "Использование построения временного объекта как возвращаемого объекта" << endl;
+    Student temp_copied = create_temp_object(object_without_params);   // использование построения временного объекта как возвращаемого объекта
+    temp_copied.print_all();
 
-    cout << "\nРазмещение объекта в статической памяти" << endl;
-    Student staticPersons[3] =  // размещение объекта в статической памяти
-    {
-        Person(name1, 23, 1),
-        Person(name2, 34, 0),
-        Person(name3, 21, 1)
+    cout << endl << "Размещение объекта в статической памяти" << endl;
+    Student static_arr[3] = {    // размещение объекта в статической памяти
+        Student(name1, 2, 1),
+        Student(name2, 3, 0),
+        Student(name3, 1, 1)
     };
     for (int i = 0; i < 3; i++)
     {
-        staticPersons[i].print_all();
+        static_arr[i].print_all();
     }
 
-    cout << "\nРазмещение объекта в динамической памяти" << endl;
-    Student* dynamicPersons = new Student[3]{ Person(name1, 23, 1), Person(name2, 34, 0), Person(name3, 21, 1) };   // размещение объекта в динамической памяти
+    cout << endl << "Размещение объекта в динамической памяти" << endl;
+    Student* dynamic_arr = new Student[3] {  // размещение объекта в динамической памяти
+        Student(name1, 2, 1),
+        Student(name2, 3, 0),
+        Student(name3, 1, 1)
+    };   
 
     for (int i = 0; i < 3; i++)
     {
-        dynamicPersons[i].print_all();
+        dynamic_arr[i].print_all();
     }
-    delete[] dynamicPersons;
+    delete[] dynamic_arr;
 
-    cout << "\nОпределение и использование указателя на объект класса" << endl;
-    Student* ptrStaticPersons = &staticPersons[2];   // определение указателя на объект класса
-    ptrStaticPersons->print_all();   // использование указателя на объект класса
+    cout << endl << "Определение и использование указателя на объект класса" << endl;
+    Student* object_ptr = &static_arr[2];  // определение указателя на объект класса
+    object_ptr->print_all();   // использование указателя на объект класса
 
-    cout << "\nОпределение и использование указателя на компоненту-функцию класса" << endl;
-    void (Student:: * ptr)();    // определение указателя на объект класса
-    ptr = &Student::print_all;
-    (staticPersons[0].*ptr)();  // использование указателя на объект класса
+    cout << endl << "Определение и использование указателя на компоненту-функцию класса" << endl;
+    void (Student:: * function_ptr)();  // определение указателя на объект класса
+    function_ptr = &Student::print_all;
+    (static_arr[0].*function_ptr)();    // использование указателя на объект класса
 
     return 0;
 }
 
-void ViewPerson(Student object)
+void show_student(Student object)
 {
-    cout << "Переданный объект функции по значению" << endl;
+    cout << "Передан объект функции по значению" << endl;
     object.print_all();
 }
 
-Student CreateTempObject(Student& object)
+Student create_temp_object(Student& object)
 {
-    Student tempObject(object);
-    char nonDefined[] = "Не определено";
-    tempObject.set_name(nonDefined);
-    return tempObject;
+    Student temp_object(object);
+    char undef_name[] = "Не определено";
+    temp_object.set_name(undef_name);
+    return temp_object;
 }
